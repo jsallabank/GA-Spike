@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>Content Page</title>
+      <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    var GA_LOCAL_STORAGE_KEY = 'ga:clientId';
+    //start of query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('myParam');
+      
+    function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+      var queryID = getParameterByName('id');
+     if (queryID !== null){
+         //console.log("www"+queryID)
+          localStorage.setItem(GA_LOCAL_STORAGE_KEY,queryID);
+      }
+      //end of query string
+      
+      
+    if(localStorage.getItem(GA_LOCAL_STORAGE_KEY)===null||localStorage.getItem(GA_LOCAL_STORAGE_KEY)==='null'){
+      alertFunc();
+      function alertFunc() {
+      var txt;
+      var individualID = prompt("Please enter your ID:", "");
+      if (individualID == null || individualID == "") {
+       alertFunc();
+      } else {
+        localStorage.setItem(GA_LOCAL_STORAGE_KEY,individualID);
+      }
+      }
+      }
+  
+    if (window.localStorage) {
+      ga('create', 'UA-156655996-1', {
+        'storage': 'none',
+        'clientId': localStorage.getItem(GA_LOCAL_STORAGE_KEY)
+      });
+      ga(function(tracker) {
+       localStorage.setItem(GA_LOCAL_STORAGE_KEY, tracker.get('clientId'));
+     });
+    }
+    else {
+      ga('create', 'UA-156655996-1', {
+        'storage': 'none',
+        'clientId': '1'
+      });
+    }
+  
+    ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+    <link rel="stylesheet" type="text/css" href="home.css" media="screen" />
+    <script type="text/javascript" src="home.js"></script>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    </head>
+    <div>CONTENT PAGE </br></br></div>
+     <a class="mdl-navigation__link" href="home.html">Home</a>
+    <div>Content</div>
+</html>
+
